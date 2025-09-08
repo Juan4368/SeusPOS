@@ -1,0 +1,57 @@
+# --- Python build & cache ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Test & coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# --- Linters / type checkers ---
+.mypy_cache/
+.pytype/
+.pyre/
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Logs & dumps ---
+*.log
+logs/
+dump_*.sql
+
+# --- Environment & secrets ---
+.env
+.env.local
+.env.*.local
+# Mantén un ejemplo versionado:
+!.env.example
+
+# --- Tooling ---
+*.lock.db
+*.sqlite3
+.python-version
+
+# --- Node (si usas algo de frontend en la misma carpeta) ---
+node_modules/
