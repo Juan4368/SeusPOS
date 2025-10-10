@@ -69,6 +69,7 @@ class CategoriaContabilidad(Base):
 
     ingresos            = relationship("Ingreso", back_populates="categoria_contabilidad")
     egresos             = relationship("Egreso", back_populates="categoria_contabilidad")
+    carteras            = relationship("Cartera", back_populates="categoria_contabilidad")
 
 # --- Catálogo: Producto ---
 class Product(Base):
@@ -214,4 +215,21 @@ class Egreso(Base):
 
     __table_args__ = (
         CheckConstraint('monto >= 0', name='ck_egreso_monto_no_negativo'),
+    )
+
+
+class Cartera(Base):
+    __tablename__ = "cartera"
+
+    cartera_id                = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
+    monto                     = Column(Numeric(10, 2), nullable=False)
+    categoria_contabilidad_id = Column(Integer, ForeignKey("categoria_contabilidad.id", ondelete="SET NULL"), nullable=True)
+    fecha                     = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
+    cliente                   = Column(String(150), nullable=True)
+    notas                     = Column(String(255), nullable=True)
+
+    categoria_contabilidad    = relationship("CategoriaContabilidad", back_populates="carteras")
+
+    __table_args__ = (
+        CheckConstraint('monto >= 0', name='ck_cartera_monto_no_negativo'),
     )

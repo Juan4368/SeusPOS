@@ -8,6 +8,7 @@ from .Egreso import Egreso
 from .TipoMovimiento import TipoMovimiento
 from .RefMovimiento import RefMovimiento
 from .MovimientosStock import MovimientosStock
+from .Cartera import Cartera
 
 __all__ = [
     "UserRole",
@@ -20,4 +21,5 @@ __all__ = [
     "MovimientosStock",
     "Ingreso",
     "Egreso",
+    "Cartera",
 ]
