@@ -59,8 +59,16 @@ class Categoria(Base):
     creado_por          = relationship("User", back_populates="categorias_creadas",   foreign_keys=[creado_por_id])
     actualizado_por     = relationship("User", back_populates="categorias_editadas",  foreign_keys=[actualizado_por_id])
 
-    ingresos            = relationship("Ingreso", back_populates="categoria")
-    egresos             = relationship("Egreso", back_populates="categoria")
+
+class CategoriaContabilidad(Base):
+    __tablename__ = "categoria_contabilidad"
+
+    id                  = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
+    nombre              = Column(String(100), nullable=False, unique=True)
+    codigo              = Column(String(50), nullable=False, unique=True)
+
+    ingresos            = relationship("Ingreso", back_populates="categoria_contabilidad")
+    egresos             = relationship("Egreso", back_populates="categoria_contabilidad")
 
 # --- Catálogo: Producto ---
 class Product(Base):
@@ -176,15 +184,15 @@ class MovimientosStock(Base):
 class Ingreso(Base):
     __tablename__ = "ingreso"
 
-    ingreso_id       = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
-    monto            = Column(Numeric(10, 2), nullable=False)
-    categoria_id     = Column(Integer, ForeignKey("categoria.categoria_id", ondelete="SET NULL"), nullable=True)
-    fecha            = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
-    notas            = Column(String(255), nullable=True)
-    cliente          = Column(String(150), nullable=True)
-    tipo_ingreso     = Column(TipoIngresoEnum, nullable=False, index=True)
+    ingreso_id               = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
+    monto                    = Column(Numeric(10, 2), nullable=False)
+    categoria_contabilidad_id= Column(Integer, ForeignKey("categoria_contabilidad.id", ondelete="SET NULL"), nullable=True)
+    fecha                    = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
+    notas                    = Column(String(255), nullable=True)
+    cliente                  = Column(String(150), nullable=True)
+    tipo_ingreso             = Column(TipoIngresoEnum, nullable=False, index=True)
 
-    categoria        = relationship("Categoria", back_populates="ingresos")
+    categoria_contabilidad   = relationship("CategoriaContabilidad", back_populates="ingresos")
 
     __table_args__ = (
         CheckConstraint('monto >= 0', name='ck_ingreso_monto_no_negativo'),
@@ -194,15 +202,15 @@ class Ingreso(Base):
 class Egreso(Base):
     __tablename__ = "egreso"
 
-    egreso_id        = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
-    monto            = Column(Numeric(10, 2), nullable=False)
-    categoria_id     = Column(Integer, ForeignKey("categoria.categoria_id", ondelete="SET NULL"), nullable=True)
-    fecha            = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
-    notas            = Column(String(255), nullable=True)
-    cliente          = Column(String(150), nullable=True)
-    tipo_egreso      = Column(TipoEgresoEnum, nullable=False, index=True)
+    egreso_id                  = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
+    monto                      = Column(Numeric(10, 2), nullable=False)
+    categoria_contabilidad_id  = Column(Integer, ForeignKey("categoria_contabilidad.id", ondelete="SET NULL"), nullable=True)
+    fecha                      = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
+    notas                      = Column(String(255), nullable=True)
+    cliente                    = Column(String(150), nullable=True)
+    tipo_egreso                = Column(TipoEgresoEnum, nullable=False, index=True)
 
-    categoria        = relationship("Categoria", back_populates="egresos")
+    categoria_contabilidad     = relationship("CategoriaContabilidad", back_populates="egresos")
 
     __table_args__ = (
         CheckConstraint('monto >= 0', name='ck_egreso_monto_no_negativo'),
