@@ -9,6 +9,7 @@ import time
 from fastapi.middleware.cors import CORSMiddleware
 from infrastructure.data.createTable import create_tables
 from app.routes import productos_router  # importa tu router
+from app.routes import ingresos_router
 from app.cargar_productos import cargar_productos_desde_xml
 
 app = FastAPI(
@@ -83,3 +84,4 @@ def read_root():
 
 # Incluir rutas
 app.include_router(productos_router.router)
+app.include_router(ingresos_router.router)
