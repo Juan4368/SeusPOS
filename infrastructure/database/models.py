@@ -10,6 +10,7 @@ Base = declarative_base()
 # --- Enums ---
 UserRole = Enum('administrador', 'vendedor', name='user_role')
 TipoIngresoEnum = Enum('efectivo', 'transferencia', name='tipo_ingreso_enum')
+TipoEgresoEnum = Enum('efectivo', 'transferencia', name='tipo_egreso_enum')
 
 # --- Usuario ---
 class User(Base):
@@ -59,6 +60,7 @@ class Categoria(Base):
     actualizado_por     = relationship("User", back_populates="categorias_editadas",  foreign_keys=[actualizado_por_id])
 
     ingresos            = relationship("Ingreso", back_populates="categoria")
+    egresos             = relationship("Egreso", back_populates="categoria")
 
 # --- Catálogo: Producto ---
 class Product(Base):
@@ -186,4 +188,22 @@ class Ingreso(Base):
 
     __table_args__ = (
         CheckConstraint('monto >= 0', name='ck_ingreso_monto_no_negativo'),
+    )
+
+
+class Egreso(Base):
+    __tablename__ = "egreso"
+
+    egreso_id        = Column(Integer, Identity(start=1, cycle=False), primary_key=True, index=True)
+    monto            = Column(Numeric(10, 2), nullable=False)
+    categoria_id     = Column(Integer, ForeignKey("categoria.categoria_id", ondelete="SET NULL"), nullable=True)
+    fecha            = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
+    notas            = Column(String(255), nullable=True)
+    cliente          = Column(String(150), nullable=True)
+    tipo_egreso      = Column(TipoEgresoEnum, nullable=False, index=True)
+
+    categoria        = relationship("Categoria", back_populates="egresos")
+
+    __table_args__ = (
+        CheckConstraint('monto >= 0', name='ck_egreso_monto_no_negativo'),
     )
