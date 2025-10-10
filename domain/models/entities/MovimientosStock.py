@@ -12,6 +12,7 @@ class MovimientosStock(BaseModel):
     cantidad: int
     referencia_doc: str | None = None
     nota: str | None = None
+    realizado_por_id: int
     fecha_creacion: datetime | None = None
 
     class Config:
