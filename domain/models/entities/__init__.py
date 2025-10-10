@@ -1,6 +1,7 @@
 from .UserRole import UserRole
 from .User import User
 from .Categoria import Categoria
+from .CategoriaContabilidad import CategoriaContabilidad
 from .Stock import Stock
 from .Ingreso import Ingreso
 from .Egreso import Egreso
@@ -12,6 +13,7 @@ __all__ = [
     "UserRole",
     "User",
     "Categoria",
+    "CategoriaContabilidad",
     "Stock",
     "TipoMovimiento",
     "RefMovimiento",

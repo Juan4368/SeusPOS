@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class Ingreso(BaseModel):
     ingreso_id: int
     monto: Decimal
-    categoria_id: int | None = None
+    categoria_contabilidad_id: int | None = None
     fecha: datetime
     notas: str | None = None
     cliente: str | None = None
