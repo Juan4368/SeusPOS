@@ -3,6 +3,7 @@ from .User import User
 from .Categoria import Categoria
 from .Stock import Stock
 from .Ingreso import Ingreso
+from .Egreso import Egreso
 from .TipoMovimiento import TipoMovimiento
 from .RefMovimiento import RefMovimiento
 from .MovimientosStock import MovimientosStock
@@ -16,4 +17,5 @@ __all__ = [
     "RefMovimiento",
     "MovimientosStock",
     "Ingreso",
+    "Egreso",
 ]
