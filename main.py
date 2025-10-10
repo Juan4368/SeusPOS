@@ -7,9 +7,9 @@ import webbrowser
 import threading
 import time
 from fastapi.middleware.cors import CORSMiddleware
-from infrastructure.data.createTable import create_tables
-from app.routes import productos_router  # importa tu router
-from app.cargar_productos import cargar_productos_desde_xml
+#from infrastructure.data.createTable import create_tables
+#from app.routes import productos_router  # importa tu router
+#from app.cargar_productos import cargar_productos_desde_xml
 
 app = FastAPI(
     title="POS API",
@@ -31,9 +31,9 @@ app.add_middleware(
 )
 
 # Crear tablas al iniciar la aplicación
-create_tables()
+#create_tables()
 
-cargar_productos_desde_xml()
+#cargar_productos_desde_xml()
 
 @app.get("/")
 def root():
