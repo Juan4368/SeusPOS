@@ -7,17 +7,11 @@ import webbrowser
 import threading
 import time
 from fastapi.middleware.cors import CORSMiddleware
-from infrastructure.data.createTable import create_tables
-<<<<<<< HEAD
-from app.routes import productos_router  # importa tu router
-from app.routes import ingresos_router  # importa tu router
-#from app.cargar_productos import cargar_productos_desde_xml
-=======
+#from infrastructure.data.createTable import create_tables
 from app.routes import ingresos_router
-from app.routes import productos_router  # importa tu router
+#from app.routes import productos_router  # importa tu router
 from app.routes import categorias_contabilidad_router
-from app.cargar_productos import cargar_productos_desde_xml
->>>>>>> 085d489dc26a958e2c68cbdb6f75e127b98b4543
+#from app.cargar_productos import cargar_productos_desde_xml
 
 app = FastAPI(
     title="POS API",
