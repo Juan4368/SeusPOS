@@ -16,6 +16,11 @@ from app.routes import (
     cartera_router,
 )
 from app.cargar_productos import cargar_productos_desde_xml  # noqa: F401
+#from infrastructure.data.createTable import create_tables
+from app.routes import ingresos_router
+#from app.routes import productos_router  # importa tu router
+from app.routes import categorias_contabilidad_router
+#from app.cargar_productos import cargar_productos_desde_xml
 
 app = FastAPI(
     title="POS API",
