@@ -7,8 +7,9 @@ import webbrowser
 import threading
 import time
 from fastapi.middleware.cors import CORSMiddleware
-#from infrastructure.data.createTable import create_tables
-#from app.routes import productos_router  # importa tu router
+from infrastructure.data.createTable import create_tables
+from app.routes import productos_router  # importa tu router
+from app.routes import ingresos_router  # importa tu router
 #from app.cargar_productos import cargar_productos_desde_xml
 
 app = FastAPI(
@@ -64,7 +65,7 @@ def open_chrome():
 
 if __name__ == "__main__":
     threading.Thread(target=open_chrome).start()
-    # uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 
 # Cargar el archivo correspondiente al entorno
 env = os.getenv("APP_ENV", "dev")
@@ -82,4 +83,5 @@ def read_root():
     } """
 
 # Incluir rutas
-app.include_router(productos_router.router)
+#app.include_router(productos_router.router)
+app.include_router(ingresos_router.router)
